@@ -1,6 +1,6 @@
 /* Toggle Icon Navbar */
-let menuIcon = document.querySelector('#menu-icon');
-let navbar = document.querySelector('.navbar');
+const menuIcon = document.querySelector('#menu-icon');
+const navbar = document.querySelector('.navbar');
 
 menuIcon.onclick = () => {
     menuIcon.classList.toggle('bx-x');
@@ -8,51 +8,60 @@ menuIcon.onclick = () => {
 };
 
 /* Scroll Sections Active Link */
-let sections = document.querySelectorAll('section');
-let navLinks = document.querySelectorAll('header nav a');
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('header nav a');
 
 window.onscroll = () => {
     sections.forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 150;
-        let height = sec.offsetHeight;
-        let id = sec.getAttribute('id');
+        const top = window.scrollY;
+        const offset = sec.offsetTop - 150;
+        const height = sec.offsetHeight;
+        const id = sec.getAttribute('id');
 
         if (top >= offset && top < offset + height) {
-            navLinks.forEach(links => {
-                links.classList.remove('active');
-                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
             });
-        };
+            const target = document.querySelector('header nav a[href*="' + CSS.escape(id) + '"]');
+            if (target) target.classList.add('active');
+        }
     });
 
     /* Sticky Navbar */
-    let header = document.querySelector('header');
+    const header = document.querySelector('header');
     header.classList.toggle('sticky', window.scrollY > 100);
 
-    /* Remove toggle icon and navbar when click navbar link (scroll) */
+    /* Close mobile nav on scroll */
     menuIcon.classList.remove('bx-x');
     navbar.classList.remove('active');
 };
 
 /* Scroll Reveal */
 ScrollReveal({
-    // reset: true,
-    distance: '80px',
-    duration: 2000,
-    delay: 200
+    distance: '60px',
+    duration: 1500,
+    delay: 150,
+    easing: 'ease-out'
 });
 
-ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
-ScrollReveal().reveal('.home-img, .services-container, .portfolio-box, .contact form', { origin: 'bottom' });
-ScrollReveal().reveal('.home-content h1, .about-img', { origin: 'left' });
-ScrollReveal().reveal('.home-content p, .about-content', { origin: 'right' });
+ScrollReveal().reveal('.home-content .greeting', { origin: 'top', delay: 100 });
+ScrollReveal().reveal('.home-content h1', { origin: 'left', delay: 200 });
+ScrollReveal().reveal('.home-content .typed-wrap', { origin: 'right', delay: 300 });
+ScrollReveal().reveal('.home-content p', { origin: 'bottom', delay: 400 });
+ScrollReveal().reveal('.home-content .social-media', { origin: 'bottom', delay: 500 });
+ScrollReveal().reveal('.heading', { origin: 'top' });
+ScrollReveal().reveal('.section-subtitle', { origin: 'top', delay: 100 });
+ScrollReveal().reveal('.about-content h3, .about-content > p', { origin: 'bottom', interval: 150 });
+ScrollReveal().reveal('.info-item', { origin: 'bottom', interval: 100 });
+ScrollReveal().reveal('.resume-content', { origin: 'bottom', interval: 150 });
+ScrollReveal().reveal('.portfolio-card', { origin: 'bottom', interval: 100 });
+ScrollReveal().reveal('.contact-card', { origin: 'bottom' });
 
-/* Typed js */
+/* Typed.js */
 const typed = new Typed('.multiple-text', {
-    strings: ['Game Balance Designer'],
-    typeSpeed: 100,
-    backSpeed: 100,
-    backDelay: 1000,
+    strings: ['Balance Designer', 'System Planner', 'Data-Driven Thinker'],
+    typeSpeed: 80,
+    backSpeed: 50,
+    backDelay: 2000,
     loop: true
 });
